@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${RDS_ADDRESS}:3306/autodoc?serverTimezone=UTC&characterEncoding=UTF-8
+    username: ${RDS_NAME}
+    password: ${RDS_PASSWORD}
+  jpa:
+    database: mysql
+    hibernate:
+      ddl-auto: update  # (1) 스키마 자동 생성
+    show-sql: true      # (2) SQL 쿼리 출력
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        format_sql: true  # (3) SQL pretty print
