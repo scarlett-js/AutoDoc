@@ -1,12 +1,15 @@
 package com.autodoc.server.member;
 
 import com.autodoc.server.audit.Auditable;
+import com.autodoc.server.document.entity.DocumentEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @Getter
@@ -27,7 +30,7 @@ public class Member extends Auditable {
     @Column(length = 10, nullable = false)
     private String name;
 
-    @Column(length = 20, nullable = true)
+    @Column(length = 20, nullable = false)
     private String phoneNumber;
 
     @Column(length = 20, nullable = true)
@@ -45,8 +48,11 @@ public class Member extends Auditable {
     @Column(length = 200, nullable = true)
     private String signStamp;
 
+//    @OneToMany(mappedBy = "member", cascade = {CascadeType.REMOVE, CascadeType.PERSIST})
+//    private List<DocumentEntity> documents = new ArrayList<>();
 
-
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> roles = new ArrayList<>();
 
     //폰, 이름,회사명 일비 서명, 소속, 직급
 }

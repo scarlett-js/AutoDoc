@@ -1,13 +1,17 @@
 package com.autodoc.server.member;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/members")
+@Validated
+@Slf4j
 public class MemberController {
     private final MemberService memberService;
     private final MemberMapper memberMapper;
@@ -18,7 +22,7 @@ public class MemberController {
     }
 
     @PostMapping
-    public ResponseEntity createMember(@RequestBody @Valid MemberDto.Post requestBody){
+    public ResponseEntity createMember(@Valid @RequestBody MemberDto.Post requestBody){
 
         Member response = memberService.createMember(memberMapper.memberPostToMember(requestBody));
 
