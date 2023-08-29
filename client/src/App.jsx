@@ -1,10 +1,11 @@
+import CommonTest from "./pages/CommonTest";
 
 function App() {
-
   return (
     <>
+      <CommonTest />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
