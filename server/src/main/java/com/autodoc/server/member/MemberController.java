@@ -3,6 +3,9 @@ package com.autodoc.server.member;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,9 +32,11 @@ public class MemberController {
         return new ResponseEntity<>(memberMapper.memberToMemberResponse(response), HttpStatus.CREATED);
     }
 
-    @GetMapping("/{member-id}")
-    public ResponseEntity getMember(@PathVariable long memberId){
-        Member response = memberService.findMember(memberId);
+    @GetMapping("/me")
+    public ResponseEntity getMember( Authentication authentication){
+//        Authentication debugAuth = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getPrincipal().toString();
+        Member response = memberService.verifyExitsEmail(email);
 
         return new ResponseEntity(memberMapper.memberToMemberResponse(response), HttpStatus.OK);
     }
