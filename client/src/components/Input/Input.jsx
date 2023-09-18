@@ -1,7 +1,8 @@
-import React from "react";
 import styled, { css } from "styled-components";
+import { BsCheck } from "react-icons/bs";
+import { RiCloseFill } from "react-icons/ri";
 
-const PageInput = ({
+const Input = ({
   width,
   info,
   size,
@@ -11,6 +12,8 @@ const PageInput = ({
   eyebutton,
   suffixSize,
   color,
+  focusColor,
+  isValid,
   ...props
 }) => {
   return (
@@ -20,13 +23,15 @@ const PageInput = ({
         height={height}
         fontSize={fontSize}
         onChange={onChange}
+        $focusColor={focusColor}
+        $isValid={isValid}
         {...props}
       />
       {info && <InputInfo>{info}</InputInfo>}
-      {eyebutton && (
-        <SuffixContainer size={suffixSize} color={color}>
-          {eyebutton}
-        </SuffixContainer>
+      {isValid !== undefined && props.value !== "" && (
+        <ValidationIcon className={isValid ? "valid-icon" : "invalid-icon"}>
+          {isValid ? <BsCheck /> : <RiCloseFill />}
+        </ValidationIcon>
       )}
     </InputContainer>
   );
@@ -41,11 +46,11 @@ const InputField = styled.input`
   width: ${(props) => props.size || "100%"}rem;
   height: ${(props) => props.height || "auto"}rem;
   padding: 0.2rem;
-  border: none;
-  border-bottom: 1px solid #ccc;
+
+  border: 1px solid #ccc;
   outline: none;
-  transition: border-bottom-color 0.3s ease;
-  background-color: transparent;
+  transition: border-color 0.3s ease;
+  background-color: var(--color-white);
 
   ${(props) =>
     props.fontSize &&
@@ -54,7 +59,8 @@ const InputField = styled.input`
     `}
 
   &:focus {
-    border-bottom-color: var(--color-blue-03);
+    border-color: ${(props) =>
+      props.$focusColor ? props.$focusColor : "var(--color-blue-06)"};
   }
 `;
 
@@ -65,16 +71,16 @@ const InputInfo = styled.p`
   word-wrap: break-word;
 `;
 
-const SuffixContainer = styled.button`
+const ValidationIcon = styled.span`
   position: absolute;
-  background-color: transparent;
-  color: ${(props) => props.color};
-  font-size: ${(props) => props.size || "inherit"}rem;
-  cursor: pointer;
-
-  :hover {
-    fill: var(--color-blue-04);
+  right: 10px;
+  top: 30%;
+  transform: translateY(-50%);
+  font-size: 1.8rem;
+  color: var(--color-blue-06);
+  &.invalid-icon {
+    color: var(--color-red-01);
   }
 `;
 
-export default PageInput;
+export default Input;
