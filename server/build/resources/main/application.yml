@@ -2,7 +2,7 @@ spring:
   jpa:
     database: mysql
     hibernate:
-      ddl-auto: create  # (1) 스키마 자동 생성
+      ddl-auto: update  # (1) 스키마 자동 생성
     show-sql: true      # (2) SQL 쿼리 출력
     properties:
       hibernate:
@@ -31,9 +31,9 @@ mail:
 
 # Twilio 계정 정보
 # Twilio 전화번호 (구매한 Twilio 전화번호 입력)
-twilio:
-  accountSid: ${TWILIO_SID}
-  authToken: ${TWILIO_SID_AUTH_TOKEN}
-  phoneNumber: ${TWILIO_PHONE_NUMBER}
-firebase:
-  path: ${FIREBASE_KEY}
+#twilio:
+#  accountSid: ${TWILIO_SID}
+#  authToken: ${TWILIO_SID_AUTH_TOKEN}
+#  phoneNumber: ${TWILIO_PHONE_NUMBER}
+#firebase:
+#  path: ${FIREBASE_KEY}
