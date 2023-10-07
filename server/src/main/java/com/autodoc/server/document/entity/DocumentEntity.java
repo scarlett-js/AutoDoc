@@ -1,14 +1,16 @@
 package com.autodoc.server.document.entity;
 
 
-import com.autodoc.server.member.Member;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import javax.persistence.Id;
 
-import javax.persistence.*;
-
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import java.util.Date;
 
 @Entity //엔티티 선언
@@ -44,9 +46,7 @@ public class DocumentEntity {
     @Column()
     private Long member_id; // 멤버 id
 
-//    @ManyToOne
-//    @JoinColumn(name = "MEMBER_ID")
-//    private Member member;
+
 
 
     public void patch(DocumentEntity documentEntity) { //null 버그 해결
