@@ -13,6 +13,9 @@ spring:
     url: jdbc:mysql://localhost:3306/autodoc?serverTimezone=UTC&characterEncoding=UTF-8
     username: root
     password: ${AUTODOC_PASSWORD}
+  mvc:
+    pathmatch:
+      matching-strategy=ant_path_matcher:
 
 #logging:
 #  level:
@@ -28,6 +31,7 @@ jwt:
 mail:
   address:
     admin: admin@gmail.com
+
 
 # Twilio 계정 정보
 # Twilio 전화번호 (구매한 Twilio 전화번호 입력)
