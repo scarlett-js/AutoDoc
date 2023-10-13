@@ -33,7 +33,7 @@ public class MemberController {
     }
 
     @GetMapping("/me")
-    public ResponseEntity getMember( Authentication authentication){
+    public ResponseEntity getMember( Authentication authentication){ //https://hudi.blog/spring-argument-resolver/ 참고하여 수정 필요
 //        Authentication debugAuth = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getPrincipal().toString();
         Member response = memberService.verifyExitsEmail(email);
