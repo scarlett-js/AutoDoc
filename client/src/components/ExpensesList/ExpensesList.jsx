@@ -2,12 +2,14 @@
 // 결의서 페이지와 동일한 페이지 네이션을 쓴다 하여도 페이지에서 불러오는 갯수와 페이지 네이션 연동 로직 필요 
 import React, { useState } from "react";
 import { AiOutlineFileText, AiOutlineDelete } from "react-icons/ai";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import AlertPopup from "../AlertPopup";
+import { useNavigate } from "react-router-dom";
 
 const ExpensesList = ({ item, onDelete }) => {
   const { id, title, date } = item;
   const [showPopup, setShowPopup] = useState(false);
+  const navigate = useNavigate(); // useNavigate 훅을 사용하여 navigate 함수 생성
 
   const handleDelete = () => {
     // 삭제 버튼 클릭 시 팝업을 표시
@@ -25,13 +27,19 @@ const ExpensesList = ({ item, onDelete }) => {
     setShowPopup(false);
   };
 
+  const handleTitleClick = () => {
+    // 타이틀 클릭 시 임시 페이지로 이동
+    navigate(`/details/${id}`); // 해당 경로로 이동
+  };
+
   return (
     <ItemContainer>
       <Icon>
         <AiOutlineFileText />
       </Icon>
       <Date>{date}</Date>
-      <Title>{title}</Title>
+      {/* onClick 이벤트에 handleTitleClick 함수 연결 */}
+      <Title onClick={handleTitleClick}>{title}</Title>
       <DeleteButton onClick={handleDelete}>
         <AiOutlineDelete />
       </DeleteButton>
@@ -45,6 +53,7 @@ const ExpensesList = ({ item, onDelete }) => {
     </ItemContainer>
   );
 };
+
 
 const ItemContainer = styled.div`
   display: flex;
